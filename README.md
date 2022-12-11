@@ -2,7 +2,7 @@
 
 ## video demo
 
-**In order to show the effect of the software conveniently, you can click on the link below to watch the video demonstration: **
+**In order to show the effect of the software conveniently, you can click on the link below to watch the video demonstration:**
 
 **Firewall Basic Functions**[https://www.bilibili.com/video/BV1WB4y127rP?share_source=copy_web] (https://www.bilibili.com/video/BV1WB4y127rP?share_source=copy_web)
 
@@ -52,14 +52,6 @@ The VMware installation package is provided on the genuine software platform of 
 
 You can install Ubuntu 14 system in VMware through a few simple steps, and the download Path of the system installation file is: https://releases.ubuntu.com/14.04/ubuntu-14.04.6-desktop-amd64.iso
 
-
-
-
-
- 
-
-
-
 |      |                          |
 | ---- | ------------------------ |
 |      | ![img](./pic/wps165.png) |
@@ -70,17 +62,13 @@ After installing the system, install VMware Tools to copy the software installat
 
 Download the software Compressed Packet submitted by us. Compressed Packet already contains the Compilation binary executable file and decompresses it. At this time, the directory structure of the software is as follows:
 
-E:\FIREWALL-MASTER
-
-├───argtable
-
-[原文] ─ ─ ─ common # third-party library files
-
-BUI ─ ─ ─ GUI # Client software code
-
-─ ─ ─ sha256 #  SHA Encrypt library files
-
- 
+```shell
+├─argtable
+├─common
+├─gui
+│  └─iptable_base
+└─sha256
+```
 
 ## Start the software
 
@@ -94,11 +82,15 @@ Enter the folder where the software code is located, right-click in the blank sp
 
 Enter the following command to install dependencies, you may be prompted for an administrator password.
 
+```shell
 sudo apt-get install make g++ libnetfilter-queue-dev libnetfilter-conntrac k-dev libcap-dev python-qt4
+```
 
 After the installation is complete, enter the following command:
 
+```shell
 sudo ./lpfw.app
+```
 
 |      |                          |
 | ---- | ------------------------ |
@@ -110,9 +102,10 @@ Because the firewall requires network traffic interception at the system level, 
 
 To create a new end point, enter the following command:
 
+```shell
 cd gui
-
 sudo python gui.py
+```
 
 ![img](./pic/wps168.png)
 
@@ -162,17 +155,16 @@ In order to facilitate the user to analyze the behavior of the firewall and avoi
 
 If the user needs to further analyze the firewall log, the following parameters can also be passed in when starting the background:
 
+```python
 --logging_facility = file
-
 --Log-info = 1 or 0 (1 on, 0 off)
+--log-traffic  = 1 or 0
+--log-debug  = 1 or 0
+```
 
---log-traffic=        1 或 0
-
---log-debug        =        1 或 0
-
-|      |                          |
-| ---- | ------------------------ |
-|      | ![img](./pic/wps174.png) |
+|                          |      |
+| ------------------------ | ---- |
+| ![img](./pic/wps174.png) |      |
 
 The log file is saved in the tmp directory by default. The method of reading the log is as follows:
 
@@ -186,7 +178,11 @@ The log file is saved in the tmp directory by default. The method of reading the
 
 You can see all log files saved by the firewall:
 
-### ![ img] (./ pic /wps177.png) Customize default rules
+|                          |      |
+| ------------------------ | ---- |
+| ![img](./pic/wps172.png) |      |
+
+### Customize default rules
 
 ##### **video presentation:**
 
@@ -230,15 +226,9 @@ Under the Iptable option, you can view all existing rules, or add new custom rul
 | ---- | ------------------------ |
 |      | ![img](./pic/wps183.png) |
 
-
-
 • Added custom rules
 
 ![img](./pic/wps184.png)
-
- 
-
- 
 
 You can see that with the addition of the REJECT ALL rule, all internet connections are blocked:
 
@@ -259,10 +249,6 @@ To delete a rule, just click to select a rule, then click Delete selected:
 |      | ![img](./pic/wps187.png) |
 
 ![img](./pic/wps188.png)
-
- 
-
- 
 
 Users can click on any table header to sort according to the data corresponding to the column, which is convenient for users to filter rules when there is more data.
 
@@ -354,12 +340,12 @@ sudo iptables -F
 
 •**2022-4-12:V0.11** Improve the manual about environment configuration content
 
-•**2022-4-13:V0.20 **Add program traffic real-time monitoring function
+•**2022-4-13:V0.20**Add program traffic real-time monitoring function
 
-•**2022-4-16:V0.21 **Added manual failure crash handling scheme
+•**2022-4-16:V0.21**Added manual failure crash handling scheme
 
 •**2022-4-18:V0.30** Improve the log function
 
-**2022-4-22:V0.40 **Added iptable rule direct query modification function, users can no longer click to enter lpfw.rule
+**2022-4-22:V0.40**Added iptable rule direct query modification function, users can no longer click to enter lpfw.rule
 
 Custom rules can be added directly to the file
