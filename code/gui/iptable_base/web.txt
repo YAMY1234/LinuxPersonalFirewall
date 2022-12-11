@@ -1,0 +1,22 @@
+# Local IP address
+# Set the RELATED state to ESTABLISHED
+
+iptables -A INPUT -m state --state ESTABLISHED, RELATED -j ACCEPT 
+iptables -A OUTPUT -m state --state ESTABLISHED, RELATED -j ACCEPT 
+
+# INVALID logs
+iptables -A INPUT -m state --state INVALID -j LOG 
+iptables -A INPUT -m state --state INVALID -j DROP 
+iptables -A OUTPUT -m state --state INVALID -j LOG 
+iptables -A OUTPUT -m state --state INVALID -j DROP 
+
+# Access remote Web sites
+iptables -A OUTPUT -p tcp -s $IP --sport 1024:65535 --dport 80 -m state --state NEW –j ACCEPT 
+
+# Remote access to a local Web server
+iptables -A INPUT -p tcp --sport 1024:65535 -d $IP --dport 80 -m state --state NEW –j ACCEPT
+
+# SSL access to remote Web sites
+iptables -A OUTPUT -p tcp -s $IP --sport 1024:65535 --dport 443 -m state --state NEW -j ACCEPT 
+# Remote access to a local Web server over SSL
+iptables -A INPUT -p tcp --sport 1024:65535 -d $IP --dport 443 -m state --state NEW –j ACCEPT

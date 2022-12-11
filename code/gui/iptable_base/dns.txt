@@ -1,0 +1,24 @@
+
+#Set the RELATED state to ESTABLISHED
+#iptables -A INPUT -m state --state EASTABLISHED, REALATED -j REJECT 
+#iptables -A OUTPUT -m state --state EASTABLISHED, REALATED -j REJECT 
+
+#INVALID logs
+#iptables -A INPUT -m state --state INVALID -j LOG
+#iptables -A INPUT -m state --state INVALID -j DROP 
+#iptables -A OUTPUT -m state --state INVALID -j LOG 
+#iptables -A OUTPUT -m state --state INVALID -j DROP
+
+#UDP sends DNS  query requests
+iptables -A OUTPUT -p udp -s $IP --sport 1024:65535 -d $NAMESERVER --dport 53 -m state --state NEW -j REJECT 
+#DNS queries for UDP as forwarding server
+iptables -A OUTPUT -p udp -s $IP --sport 53 -d $NAMESERVER --dport 53 -m state --state NEW -j REJECT
+
+
+#TCP Sends DNS query requests
+iptables -A OUTPUT -p tcp -s $IP --sport 1024:65535 -d $NAMESERVER --dport 53 -m state --state NEW -j REJECT 
+#DNS query of TCP as forwarding server
+iptables -A OUTPUT -p tcp -s $IP --sport 53 -d $NAMESERVER --dport 53 -m state --state NEW -j REJECT
+
+
+
